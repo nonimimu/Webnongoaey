@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NONIOAEY - Premium Store</title>
+    <title>NONIOAEY - ร้านรับทำป้ายและเว็บไซต์</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,7 @@
             --pastel-green: #E2F9EB;
             --mint-green: #91EAAF;
             --neon-green: #C3E956;
-            --glass: rgba(255, 255, 255, 0.65);
-            --neon-glow: 0 0 15px rgba(195, 233, 86, 0.7);
+            --glass: rgba(255, 255, 255, 0.55);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -25,45 +24,62 @@
         body, p, span, h1, h2, h3, h4, a, button, li { font-family: 'Mitr', sans-serif; color: var(--main-green); }
         .font-eng, .font-eng * { font-family: 'Fredoka', sans-serif !important; }
 
+        /* ลูกเล่น: พื้นหลังไล่สีเคลื่อนไหวได้ */
         body {
-            background-color: var(--bg-body);
-            background-image: 
-                radial-gradient(circle at 10% 0%, rgba(145,234,175,0.4) 0px, transparent 50%),
-                radial-gradient(circle at 90% 10%, rgba(195,233,86,0.3) 0px, transparent 50%),
-                radial-gradient(circle at 50% 90%, rgba(195,233,86,0.2) 0px, transparent 50%);
-            background-attachment: fixed; min-height: 100vh;
+            background: linear-gradient(-45deg, #F4FFFC, #E2F9EB, #dfffe5, #f0fff4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .container { max-width: 480px; margin: 0 auto; padding: 15px 15px 100px 15px; position: relative; }
+        .container { max-width: 480px; margin: 0 auto; padding: 15px 15px 40px 15px; position: relative; }
 
-        /* Glassmorphism Card */
+        /* กล่อง Glassmorphism สุดปัง + ลูกเล่นตอน Hover */
         .bento-card {
             background: var(--glass);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 28px; padding: 25px; margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(145, 234, 175, 0.15);
-            scroll-margin-top: 100px;
+            border-radius: 30px; padding: 25px; margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(145, 234, 175, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            scroll-margin-top: 80px;
+        }
+        .bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(195, 233, 86, 0.3);
         }
 
-        /* Floating Capsule Nav */
+        /* เมนูลอยแคปซูล */
         .floating-nav {
             position: sticky; top: 15px; z-index: 50;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 50px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 50px;
             padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 20px rgba(31, 75, 44, 0.05); margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(31, 75, 44, 0.08); margin-bottom: 25px;
         }
-        .hamburger { font-size: 24px; cursor: pointer; }
+        .hamburger { font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .hamburger:active { transform: scale(0.9); }
         .nav-brand { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: 1px; }
 
-        /* Profile Section */
+        /* ส่วนโปรไฟล์ + ลูกเล่นลอยตัว */
         .profile-section { text-align: center; }
         .profile-img-box {
-            width: 100px; height: 100px; margin: 0 auto 15px;
+            width: 105px; height: 105px; margin: 0 auto 15px;
             border-radius: 50%; border: 4px solid white; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(31, 75, 44, 0.1); position: relative; background: #fff;
+            box-shadow: 0 8px 20px rgba(145, 234, 175, 0.4);
+            position: relative; background: #fff;
+            animation: float 3s ease-in-out infinite; /* ลอยขึ้นลง */
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
         }
         .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
         .edit-overlay {
@@ -71,67 +87,91 @@
             background: rgba(0,0,0,0.5); color: white; display: none;
             align-items: center; justify-content: center; font-size: 12px; cursor: pointer;
         }
-        .brand-title { font-family: 'Fredoka', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 5px; }
-        .brand-subtitle { font-family: 'Fredoka', sans-serif; color: var(--mint-green); font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
+        
+        /* ลูกเล่นตัวหนังสือไล่สี */
+        .gradient-text {
+            background: linear-gradient(45deg, #1F4B2C, #4D7111);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
 
-        /* Section Titles with Neon Glow */
+        .brand-title { font-family: 'Fredoka', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 5px; }
+        .brand-subtitle { font-family: 'Fredoka', sans-serif; color: var(--mint-green); font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; }
+
+        /* หัวข้อ Sections */
         .section-title {
-            font-size: 20px; font-weight: 600; margin-bottom: 25px; text-align: center;
+            font-size: 20px; font-weight: 600; margin-bottom: 20px; text-align: center;
             position: relative; padding-bottom: 10px;
         }
         .section-title::after {
             content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 60px; height: 4px; background: var(--neon-green); border-radius: 10px; box-shadow: var(--neon-glow);
+            width: 50px; height: 4px; background: var(--neon-green); border-radius: 10px;
+            box-shadow: 0 0 10px rgba(195, 233, 86, 0.8);
         }
 
-        .info-box { background: rgba(226,249,235,0.5); padding: 18px; border-radius: 20px; margin-bottom: 15px; font-size: 13px; border: 1px solid white; }
-        .price-list { list-style: none; }
-        .price-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(145,234,175,0.3); }
+        /* กล่องข้อมูลและรายละเอียด */
+        .info-box { background: rgba(255,255,255,0.6); padding: 18px; border-radius: 20px; margin-bottom: 15px; font-size: 13px; border: 1px solid rgba(255,255,255,0.8); }
+        .price-list { list-style: none; margin-top: 10px; }
+        .price-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed rgba(145,234,175,0.5); }
         .price-list li:last-child { border: none; }
+        .bullet-list { list-style: none; padding-left: 5px; margin-top: 10px; }
+        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 6px; line-height: 1.5; }
+        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--mint-green); font-weight: bold; font-size: 16px;}
 
-        /* Gallery Grid */
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        /* แกลเลอรี่ */
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
         .gallery-item {
-            background: white; padding: 12px; border-radius: 24px; text-align: center;
-            border: 1px solid rgba(145,234,175,0.2); transition: 0.3s;
+            background: white; padding: 10px; border-radius: 20px; text-align: center;
+            border: 1px solid rgba(145,234,175,0.3); transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; margin-bottom: 10px; cursor: pointer; }
-        .gallery-item h4 { font-size: 12px; font-weight: 500; margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(145,234,175,0.4); }
+        .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; margin-bottom: 8px; cursor: pointer; }
+        .gallery-item h4 { font-size: 12px; font-weight: 500; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .preview-btn {
             display: block; background: var(--neon-green); color: var(--main-green);
             text-decoration: none; padding: 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
-            box-shadow: 0 4px 10px rgba(195, 233, 86, 0.3); border: none; width: 100%;
+            margin-top: auto; border: none; width: 100%; transition: 0.2s;
         }
+        .preview-btn:active { transform: scale(0.95); }
 
-        /* Sidebar & Bottom Nav */
+        /* เมนู Sidebar (สไลด์จากซ้าย) */
         .sidebar {
-            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
-            background: rgba(255,255,255,0.98); z-index: 1000; padding: 30px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+            position: fixed; top: 0; left: -100%; width: 260px; height: 100%;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+            z-index: 1000; padding: 25px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1); border-right: 2px solid var(--pastel-green);
         }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 15px; margin-bottom: 10px; background: var(--bg-body); border-radius: 15px; text-decoration: none; font-weight: 500; }
+        .sidebar a { display: block; padding: 12px 15px; margin-bottom: 10px; background: var(--bg-body); border-radius: 12px; text-decoration: none; font-weight: 500; font-size: 14px;}
 
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; max-width: 480px;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-around; padding: 15px 0;
-            border-radius: 25px 25px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 100;
+        /* ปุ่มติดต่อ */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .contact-btn { padding: 12px; border-radius: 15px; color: white; text-align: center; text-decoration: none; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px; transition: 0.2s; }
+        .contact-btn:active { transform: scale(0.95); }
+        .btn-fb { background: linear-gradient(45deg, #1877F2, #4facfe); }
+        .btn-line { background: linear-gradient(45deg, #06C755, #20E2D7); }
+
+        /* กุญแจแอดมิน (เปลี่ยนให้น่ารักและเห็นชัดขึ้น) */
+        .admin-trigger { 
+            position: absolute; top: 18px; right: 20px; /* ย้ายมาขวาบนเหมือนเดิม */
+            background: rgba(255,255,255,0.8); width: 35px; height: 35px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100; cursor: pointer; transition: 0.3s;
         }
-        .nav-link { text-decoration: none; color: var(--mint-green); display: flex; flex-direction: column; align-items: center; font-size: 10px; }
-        .nav-link.active { color: var(--main-green); font-weight: 600; }
+        .admin-trigger:active { transform: scale(0.8); }
 
-        /* Admin UI */
-        .admin-trigger { position: absolute; top: 20px; left: 20px; font-size: 14px; opacity: 0.1; z-index: 100; cursor: pointer; }
-        .admin-add-btn { width: 100%; padding: 12px; background: var(--main-green); color: white; border: none; border-radius: 15px; margin-top: 15px; display: none; cursor: pointer; }
+        .admin-add-btn { width: 100%; padding: 12px; background: var(--main-green); color: white; border: none; border-radius: 15px; margin-top: 15px; display: none; cursor: pointer; font-family: 'Mitr'; font-size: 12px;}
         #admin-actions {
-            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             z-index: 101; display: none; width: 90%; max-width: 400px;
         }
         .admin-save-btn {
             width: 100%; background: var(--neon-green); color: var(--main-green);
             border: none; padding: 15px; border-radius: 18px; font-weight: 700;
-            box-shadow: var(--neon-glow); cursor: pointer;
+            box-shadow: 0 5px 20px rgba(195, 233, 86, 0.5); cursor: pointer; font-family: 'Mitr'; font-size: 14px;
         }
 
         .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
@@ -142,95 +182,148 @@
 
     <div class="container">
         
-        <div class="admin-trigger" onclick="unlockAdmin()">⚙️</div>
+        <div class="admin-trigger" onclick="unlockAdmin()">🔑</div>
 
         <nav id="sidebar" class="sidebar">
             <div style="font-size: 30px; text-align: right; cursor: pointer; color: #ccc;" onclick="toggleMenu()">×</div>
-            <h2 class="font-eng">NONIOAEY</h2>
+            <h2 class="font-eng gradient-text">NONIOAEY</h2>
             <div style="margin-top: 20px;">
-                <a href="#profile" onclick="toggleMenu()">🏠 HOME</a>
-                <a href="#web" onclick="toggleMenu()">💻 WEB DESIGN</a>
-                <a href="#idcard" onclick="toggleMenu()">💳 ID CARD</a>
-                <a href="#groups" onclick="toggleMenu()">📦 GROUPS</a>
-                <a href="#info" onclick="toggleMenu()">📌 INFO</a>
+                <a href="#profile" onclick="toggleMenu()">🏠 หน้าหลักร้านค้า</a>
+                <a href="#web" onclick="toggleMenu()">💻 งานเว็บ</a>
+                <a href="#idcard" onclick="toggleMenu()">💳 ป้ายไอดี</a>
+                <a href="#groups" onclick="toggleMenu()">📦 กลุ่มงานต่างๆ</a>
+                <a href="#info" onclick="toggleMenu()">📌 ข้อมูลเพิ่มเติม</a>
             </div>
         </nav>
 
         <nav class="floating-nav">
             <div class="hamburger" onclick="toggleMenu()">☰</div>
-            <span class="nav-brand">NONIOAEY</span>
-            <div style="width: 24px;"></div> </nav>
+            <span class="nav-brand gradient-text">NONIOAEY</span>
+            <div style="width: 24px;"></div>
+        </nav>
 
         <header id="profile" class="bento-card profile-section">
             <div class="profile-img-box">
                 <img id="shop-profile-img" src="https://via.placeholder.com/150/C3E956/1F4B2C?text=N" alt="Profile">
-                <div id="edit-img-btn" class="edit-overlay" onclick="changeProfileImg()">CHANGE</div>
+                <div id="edit-img-btn" class="edit-overlay" onclick="changeProfileImg()">เปลี่ยนรูป</div>
             </div>
-            <h1 class="brand-title">NONIOAEY</h1>
-            <p class="brand-subtitle">Premium Store</p>
-            <p class="brand-desc" id="shop-desc">รับทำป้ายขายไอดี • ทำเว็บร้าน • ปล่อยเช่ารหัส<br>และบริการอื่นๆ ครบวงจร</p>
+            <h1 class="brand-title gradient-text">NONIOAEY</h1>
+            <p class="brand-subtitle">รับทำป้ายขายไอดี , ทำเว็บร้าน , ปล่อยเช่ารหัส , อื่นๆ</p>
         </header>
 
         <section id="web" class="bento-card">
-            <h2 class="section-title">💻 WEB DESIGN</h2>
+            <h2 class="section-title">💻 งานเว็บ</h2>
             <div class="info-box">
-                <strong>อัตราค่าบริการ</strong>
+                <strong>สังเขป</strong>
+                <p>รับทำเว็บไซต์ลิงก์ร้าน มีทั้งเทมเพลตให้เลือกเเละงานสั่งทำพิเศษ สามารถสอบถามได้ ราคาเริ่มต้นที่ 69 บาท</p>
+            </div>
+            <div class="info-box">
+                <strong>เรทราคาเว็บ</strong>
                 <ul class="price-list">
-                    <li><span>เว็บโอนเงิน</span><span>69.-</span></li>
-                    <li><span>เว็บผลงาน</span><span>109.-</span></li>
-                    <li><span>เว็บรายละเอียด</span><span>159.-</span></li>
-                    <li><span>เว็บ Full Set</span><span>209.-</span></li>
+                    <li><span>เว็บโอนเงิน</span><span>69 บาท</span></li>
+                    <li><span>เว็บตัวอย่างผลงาน</span><span>109 บาท</span></li>
+                    <li><span>เว็บรายละเอียดต่างๆ</span><span>159 บาท</span></li>
+                    <li><span>เว็บตัวอย่างผลงาน + รายละเอียด</span><span>209 บาท</span></li>
+                </ul>
+                <p style="font-size: 11px; opacity: 0.7; margin-top: 10px;">* เว็บอื่นๆสามารถส่งรายละเอียดมาสอบถามราคาได้</p>
+            </div>
+            <div class="info-box">
+                <strong>ราคาบวกเพิ่ม & เงื่อนไข</strong>
+                <ul class="bullet-list">
+                    <li>เเก้ฟรี 1 ครั้งก่อนส่งลิงก์ หลังส่งลิงก์เเก้จุดละ 5 บาท</li>
+                    <li>รูปที่ 1 - 3 ใส่ฟรี เพิ่มรูป รูปละ 10 บาท</li>
+                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
                 </ul>
             </div>
+            <h4 style="font-size: 14px; font-weight: 600; text-align: center; margin-top: 20px;">ตัวอย่างผลงาน</h4>
             <div id="gallery-web" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ ADD WORK</button>
+            <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ เพิ่มผลงาน</button>
         </section>
 
         <section id="idcard" class="bento-card">
-            <h2 class="section-title">💳 ID CARD</h2>
+            <h2 class="section-title">💳 ป้ายไอดี</h2>
             <div class="info-box">
-                <strong>Skin Rate</strong>
+                <strong>สังเขป: </strong><span>รับทำป้ายขายไอดี</span>
+            </div>
+            <div class="info-box">
+                <strong>เรทราคา</strong>
+                <p class="font-eng" style="font-weight: 600;">— 𝖲𝗄𝗂𝗇 𝖱𝖺𝗍𝖾</p>
+                <ul class="price-list" style="margin-bottom: 10px;">
+                    <li><span>1 - 100 สกิน</span><span>สกินละ 0.50</span></li>
+                    <li><span>100+ สกิน</span><span>สกินละ 1.00</span></li>
+                </ul>
+                <p class="font-eng" style="font-weight: 600;">— 𝖮𝗍𝗁𝖾𝗋𝗌</p>
                 <ul class="price-list">
-                    <li><span>1-100 Skins</span><span>0.50/ea</span></li>
-                    <li><span>100+ Skins</span><span>1.00/ea</span></li>
+                    <li><span>หัวป้าย</span><span>35.-</span></li>
+                    <li><span>ป้ายไฟ</span><span>2.- / ชิ้น</span></li>
+                    <li><span>ประดับ</span><span>0.50 / ชิ้น</span></li>
                 </ul>
             </div>
+            <div class="info-box">
+                <strong>เงื่อนไข</strong>
+                <ul class="bullet-list">
+                    <li>เเก้ฟรี 1 ครั้งก่อนส่งงาน หลังส่งงานเเก้จุดละ 5 บาท</li>
+                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
+                </ul>
+            </div>
+            <h4 style="font-size: 14px; font-weight: 600; text-align: center; margin-top: 20px;">ตัวอย่างงาน (กดขยายรูปได้)</h4>
             <div id="gallery-idcard" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ ADD WORK</button>
+            <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ เพิ่มผลงาน</button>
         </section>
 
         <section id="groups" class="bento-card">
-            <h2 class="section-title">📦 GROUPS</h2>
-            <div style="margin-bottom: 25px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• บล็อกป้าย & ของตกแต่ง</h4>
+            <h2 class="section-title">📦 กลุ่มงานต่างๆ</h2>
+            <div style="margin-bottom: 20px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มบล็อกป้ายเเละของตกเเต่ง</h4>
                 <div id="gallery-block" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ ADD</button>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ เพิ่มผลงาน</button>
             </div>
-            <div style="margin-bottom: 25px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม ROV / Identity V</h4>
+            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม ROV</h4>
                 <div id="gallery-rov" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ ADD</button>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ เพิ่มผลงาน</button>
+            </div>
+            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม identity v</h4>
+                <div id="gallery-idv" class="gallery-grid"></div>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-idv', 'link')">+ เพิ่มผลงาน</button>
+            </div>
+            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มฟอร์ม</h4>
+                <div id="gallery-form" class="gallery-grid"></div>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-form', 'link')">+ เพิ่มผลงาน</button>
+            </div>
+            <div style="border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มคอร์สสอนทำเว็บ</h4>
+                <div id="gallery-course" class="gallery-grid"></div>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-course', 'link')">+ เพิ่มผลงาน</button>
             </div>
         </section>
 
         <section id="info" class="bento-card">
-            <h2 class="section-title">📌 INFO</h2>
+            <h2 class="section-title">📌 ข้อมูลเพิ่มเติม</h2>
             <div class="info-box">
-                <strong>FAQ / คำถามที่พบบ่อย</strong>
-                <p id="faq-text">จิ้มแก้ไขข้อความตรงนี้ได้เลย...</p>
+                <strong>• ข้อสงสัย (FAQ)</strong>
+                <p>จิ้มแก้ไขและพิมพ์คำถามที่พบบ่อย 3-5 ข้อ พร้อมคำตอบตรงนี้ได้เลย...</p>
+            </div>
+            <div class="info-box">
+                <strong>• เรทราคา (สรุป)</strong>
+                <p>จิ้มแก้ไขเพื่อสรุปเรทราคาเป็นข้อๆ ได้เลย...</p>
+            </div>
+            <div class="info-box">
+                <strong>• วิธีสั่งซื้อ (How to Order)</strong>
+                <p>1. ...<br>2. ...<br>3. ...</p>
+            </div>
+            
+            <div class="contact-grid">
+                <a href="https://www.facebook.com/share/1De6NiueGU/?mibextid=wwXIfr" target="_blank" class="contact-btn btn-fb">Facebook</a>
+                <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="contact-btn btn-line">Line</a>
             </div>
         </section>
 
         <div id="admin-actions">
-            <button class="admin-save-btn" onclick="exitEditMode()">บันทึกข้อมูลและปิดแก้ไข ✅</button>
+            <button class="admin-save-btn" onclick="exitEditMode()">บันทึกข้อมูลและปิดโหมดแก้ไข ✅</button>
         </div>
-
-        <nav class="bottom-nav font-eng">
-            <a href="#profile" class="nav-link active"><span>🏠</span><span>HOME</span></a>
-            <a href="#web" class="nav-link"><span>💻</span><span>WEB</span></a>
-            <a href="#idcard" class="nav-link"><span>💳</span><span>ID</span></a>
-            <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="nav-link"><span>💬</span><span>LINE</span></a>
-        </nav>
 
         <div id="lightbox" class="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
     </div>
@@ -239,11 +332,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // 1. ระบบความปลอดภัย (รหัส Oo1122 -> Base64: T28xMTIy)
+        // 1. ระบบปลดล็อก (รหัส Oo1122 -> T28xMTIy)
         function unlockAdmin() {
-            let pw = prompt("ADMIN PASSWORD:");
+            let pw = prompt("ใส่รหัสผ่านแอดมิน:");
             if (pw !== null && btoa(pw) === "T28xMTIy") {
-                alert("ACCESS GRANTED ✨");
+                alert("ปลดล็อกโหมดแก้ไขสำเร็จ! ✨");
                 document.body.contentEditable = "true";
                 document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn').forEach(el => {
                     el.contentEditable = "false";
@@ -252,18 +345,17 @@
                 document.querySelectorAll('.admin-add-btn').forEach(btn => btn.style.display = 'block');
                 document.getElementById('edit-img-btn').style.display = 'flex';
                 document.getElementById('admin-actions').style.display = 'flex';
-                window.scrollTo(0, 0);
-            } else if (pw !== null) { alert("WRONG PASSWORD!"); }
+            } else if (pw !== null) { alert("รหัสผ่านไม่ถูกต้อง ❌"); }
         }
 
         function exitEditMode() {
             document.body.contentEditable = "false";
             document.querySelectorAll('a').forEach(l => l.style.pointerEvents = "auto");
             document.querySelectorAll('.admin-add-btn, #admin-actions, .edit-overlay').forEach(el => el.style.display = 'none');
-            alert("บันทึกหน้าจอแล้ว! (ระบบจะบันทึกข้อความที่พิมพ์อัตโนมัติหากเชื่อมฐานข้อมูล)");
+            alert("ปิดโหมดแก้ไขเรียบร้อยแล้วจ้า! (ตัวหนังสือจะบันทึกอัตโนมัติหากต่อฐานข้อมูลไว้)");
         }
 
-        // 2. ระบบบีบอัดรูป & เลือกไฟล์
+        // 2. บีบอัดรูป & เลือกรูปโปรไฟล์
         function compressImage(file, callback) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -272,9 +364,8 @@
                 img.src = e.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 600;
-                    const scale = MAX_WIDTH / img.width;
-                    canvas.width = MAX_WIDTH;
+                    const scale = 600 / img.width;
+                    canvas.width = 600;
                     canvas.height = img.height * scale;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -287,9 +378,7 @@
             let input = document.createElement('input');
             input.type = 'file'; input.accept = 'image/*';
             input.onchange = e => {
-                compressImage(e.target.files[0], base64 => {
-                    document.getElementById('shop-profile-img').src = base64;
-                });
+                compressImage(e.target.files[0], base64 => { document.getElementById('shop-profile-img').src = base64; });
             };
             input.click();
         }
@@ -297,7 +386,6 @@
         // 3. ระบบ Firebase
         let db;
         try {
-            // *** ใส่ Firebase Config ของคุณตรงนี้ ***
             const firebaseConfig = {
                 apiKey: "AIzaSyB2Mch0yd2mbola0DZ9xfJuVX1hgCDVksI",
                 authDomain: "nonioaey.firebaseapp.com",
@@ -310,7 +398,7 @@
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
 
-            const galleries = ['gallery-web', 'gallery-idcard', 'gallery-block', 'gallery-rov'];
+            const galleries = ['gallery-web', 'gallery-idcard', 'gallery-block', 'gallery-rov', 'gallery-idv', 'gallery-form', 'gallery-course'];
             galleries.forEach(id => {
                 db.ref('galleries/' + id).on('value', snap => {
                     const cont = document.getElementById(id);
@@ -318,7 +406,7 @@
                     cont.innerHTML = '';
                     snap.forEach(child => {
                         const d = child.val();
-                        let btn = d.linkUrl ? `<a href="${d.linkUrl}" class="preview-btn" target="_blank">ดูตัวอย่างผลงาน</a>` : '';
+                        let btn = d.linkUrl ? `<a href="${d.linkUrl}" class="preview-btn" target="_blank">ดูตัวอย่าง</a>` : '';
                         let action = d.type === 'lightbox' ? `onclick="openLightbox(this.src)"` : '';
                         cont.innerHTML += `<div class="gallery-item"><img src="${d.imgUrl}" ${action}><h4>${d.title}</h4>${d.type !== 'lightbox' ? btn : ''}</div>`;
                     });
@@ -331,7 +419,8 @@
             input.type = 'file'; input.accept = 'image/*';
             input.onchange = e => {
                 let title = prompt("ชื่อผลงาน:"); if(!title) return;
-                let link = type === 'link' ? prompt("ลิงก์ตัวอย่าง (https://...):") : "";
+                let link = type === 'link' ? prompt("ลิงก์ดูตัวอย่าง (https://...):") : "";
+                alert("กำลังบันทึกภาพ รอสักครู่นะครับ...");
                 compressImage(e.target.files[0], base64 => {
                     if(db) db.ref('galleries/' + id).push({ imgUrl: base64, title: title, type: type, linkUrl: link });
                 });
