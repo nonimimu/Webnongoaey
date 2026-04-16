@@ -3,347 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NONIOAEY - Store</title>
+    <title>NONIOAEY - Premium Store</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --bg-body: #F4FFFC;
+            --main-green: #1F4B2C;
+            --pastel-green: #E2F9EB;
+            --mint-green: #91EAAF;
+            --neon-green: #C3E956;
+            --glass: rgba(255, 255, 255, 0.65);
+            --neon-glow: 0 0 15px rgba(195, 233, 86, 0.7);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
-        body, p, span, h1, h2, h3, h4, a, button, li { font-family: 'Mitr', sans-serif; color: #1F4B2C; }
+        body, p, span, h1, h2, h3, h4, a, button, li { font-family: 'Mitr', sans-serif; color: var(--main-green); }
         .font-eng, .font-eng * { font-family: 'Fredoka', sans-serif !important; }
 
         body {
-            background-color: #F4FFFC;
+            background-color: var(--bg-body);
             background-image: 
                 radial-gradient(circle at 10% 0%, rgba(145,234,175,0.4) 0px, transparent 50%),
                 radial-gradient(circle at 90% 10%, rgba(195,233,86,0.3) 0px, transparent 50%),
-                radial-gradient(circle at 50% 90%, rgba(226,249,235,0.8) 0px, transparent 50%);
-            background-attachment: fixed;
-            min-height: 100vh;
+                radial-gradient(circle at 50% 90%, rgba(195,233,86,0.2) 0px, transparent 50%);
+            background-attachment: fixed; min-height: 100vh;
         }
 
         ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .container { max-width: 480px; margin: 0 auto; padding: 15px; position: relative; }
+        .container { max-width: 480px; margin: 0 auto; padding: 15px 15px 100px 15px; position: relative; }
 
+        /* Glassmorphism Card */
         .bento-card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: var(--glass);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 24px; padding: 20px; margin-bottom: 15px;
-            box-shadow: 0 4px 30px rgba(145, 234, 175, 0.15); scroll-margin-top: 80px;
+            border-radius: 28px; padding: 25px; margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(145, 234, 175, 0.15);
+            scroll-margin-top: 100px;
         }
 
+        /* Floating Capsule Nav */
         .floating-nav {
             position: sticky; top: 15px; z-index: 50;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 50px; 
-            padding: 10px 20px; display: flex; align-items: center; gap: 15px;
-            box-shadow: 0 4px 20px rgba(31, 75, 44, 0.05); margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 50px;
+            padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 20px rgba(31, 75, 44, 0.05); margin-bottom: 25px;
         }
-        .hamburger { font-size: 24px; cursor: pointer; color: #1F4B2C; }
+        .hamburger { font-size: 24px; cursor: pointer; }
         .nav-brand { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: 1px; }
 
+        /* Profile Section */
+        .profile-section { text-align: center; }
         .profile-img-box {
             width: 100px; height: 100px; margin: 0 auto 15px;
-            border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            position: relative; overflow: hidden; background: #E2F9EB;
+            border-radius: 50%; border: 4px solid white; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(31, 75, 44, 0.1); position: relative; background: #fff;
         }
         .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
         .edit-overlay {
             position: absolute; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.5); color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 12px; cursor: pointer; display: none;
+            background: rgba(0,0,0,0.5); color: white; display: none;
+            align-items: center; justify-content: center; font-size: 12px; cursor: pointer;
         }
-        .brand-title { font-family: 'Fredoka', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 5px; text-align: center; }
-        .brand-subtitle { font-family: 'Fredoka', sans-serif; color: #91EAAF; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; text-align: center; }
-        .brand-desc { font-size: 14px; line-height: 1.6; opacity: 0.8; text-align: center; }
+        .brand-title { font-family: 'Fredoka', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 5px; }
+        .brand-subtitle { font-family: 'Fredoka', sans-serif; color: var(--mint-green); font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
 
-        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px dashed #C3E956; }
-        .info-box { background: rgba(226,249,235,0.6); padding: 15px; border-radius: 15px; margin-bottom: 15px; font-size: 13px; }
-        .info-box strong { font-size: 14px; display: block; margin-bottom: 10px; }
-        
+        /* Section Titles with Neon Glow */
+        .section-title {
+            font-size: 20px; font-weight: 600; margin-bottom: 25px; text-align: center;
+            position: relative; padding-bottom: 10px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 4px; background: var(--neon-green); border-radius: 10px; box-shadow: var(--neon-glow);
+        }
+
+        .info-box { background: rgba(226,249,235,0.5); padding: 18px; border-radius: 20px; margin-bottom: 15px; font-size: 13px; border: 1px solid white; }
         .price-list { list-style: none; }
-        .price-list li { display: flex; justify-content: space-between; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(145,234,175,0.4); }
-        .price-list li:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
-        .price-list li span:last-child { font-weight: 600; }
-        
-        .bullet-list { list-style: none; padding-left: 5px; }
-        .bullet-list li { position: relative; padding-left: 15px; margin-bottom: 5px; }
-        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: #91EAAF; font-weight: bold; font-size: 16px;}
-        .note { font-size: 11px; opacity: 0.6; margin-top: 10px; }
+        .price-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(145,234,175,0.3); }
+        .price-list li:last-child { border: none; }
 
-        .gallery-title { font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 10px; }
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .gallery-item { background: white; padding: 8px; border-radius: 16px; text-align: center; border: 1px solid rgba(145,234,175,0.3); }
-        .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
-        .gallery-item h4 { font-size: 12px; margin-bottom: 8px; font-weight: 500; }
-        .preview-btn { display: block; background: #C3E956; color: #1F4B2C; text-decoration: none; padding: 6px; border-radius: 10px; font-size: 11px; font-weight: 600; transition: 0.2s; }
-        
+        /* Gallery Grid */
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .gallery-item {
+            background: white; padding: 12px; border-radius: 24px; text-align: center;
+            border: 1px solid rgba(145,234,175,0.2); transition: 0.3s;
+        }
+        .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 18px; margin-bottom: 10px; cursor: pointer; }
+        .gallery-item h4 { font-size: 12px; font-weight: 500; margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .preview-btn {
+            display: block; background: var(--neon-green); color: var(--main-green);
+            text-decoration: none; padding: 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
+            box-shadow: 0 4px 10px rgba(195, 233, 86, 0.3); border: none; width: 100%;
+        }
+
+        /* Sidebar & Bottom Nav */
         .sidebar {
-            position: fixed; top: 0; left: -100%; width: 260px; height: 100%;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
-            z-index: 1000; padding: 20px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 5px 0 20px rgba(0,0,0,0.1); border-right: 1px solid #E2F9EB;
+            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
+            background: rgba(255,255,255,0.98); z-index: 1000; padding: 30px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.05);
         }
         .sidebar.active { left: 0; }
-        .sidebar .close-btn { font-size: 28px; text-align: right; cursor: pointer; color: #999; margin-bottom: 10px; }
-        .sidebar h2 { font-family: 'Fredoka', sans-serif; font-size: 24px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #E2F9EB; }
-        .sidebar a { display: block; padding: 12px 15px; margin-bottom: 10px; background: #F4FFFC; color: #1F4B2C; text-decoration: none; border-radius: 12px; font-weight: 500; border: 1px solid transparent; }
-        
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .contact-btn { padding: 12px; border-radius: 15px; color: white; text-align: center; text-decoration: none; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px; }
-        .btn-fb { background: #1877F2; }
-        .btn-line { background: #06C755; }
+        .sidebar a { display: block; padding: 15px; margin-bottom: 10px; background: var(--bg-body); border-radius: 15px; text-decoration: none; font-weight: 500; }
 
-        .admin-lock { position: absolute; top: 15px; right: 20px; font-size: 20px; opacity: 0.3; z-index: 100; cursor: pointer; }
-        .admin-add-btn { width: 100%; padding: 10px; background: #1F4B2C; color: white; border: none; border-radius: 12px; margin-top: 15px; font-family: 'Mitr', sans-serif; font-size: 13px; cursor: pointer; display: none; }
-        
-        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .lightbox img { max-width: 100%; max-height: 80vh; border-radius: 15px; }
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; max-width: 480px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around; padding: 15px 0;
+            border-radius: 25px 25px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 100;
+        }
+        .nav-link { text-decoration: none; color: var(--mint-green); display: flex; flex-direction: column; align-items: center; font-size: 10px; }
+        .nav-link.active { color: var(--main-green); font-weight: 600; }
+
+        /* Admin UI */
+        .admin-trigger { position: absolute; top: 20px; left: 20px; font-size: 14px; opacity: 0.1; z-index: 100; cursor: pointer; }
+        .admin-add-btn { width: 100%; padding: 12px; background: var(--main-green); color: white; border: none; border-radius: 15px; margin-top: 15px; display: none; cursor: pointer; }
+        #admin-actions {
+            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+            z-index: 101; display: none; width: 90%; max-width: 400px;
+        }
+        .admin-save-btn {
+            width: 100%; background: var(--neon-green); color: var(--main-green);
+            border: none; padding: 15px; border-radius: 18px; font-weight: 700;
+            box-shadow: var(--neon-glow); cursor: pointer;
+        }
+
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .lightbox img { max-width: 100%; max-height: 80vh; border-radius: 20px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <div class="admin-lock" onclick="unlockAdmin()">🔑</div>
+        <div class="admin-trigger" onclick="unlockAdmin()">⚙️</div>
 
         <nav id="sidebar" class="sidebar">
-            <div class="close-btn" onclick="toggleMenu()">×</div>
-            <h2>NONIOAEY</h2>
-            <a href="#profile" onclick="toggleMenu()">🏠 หน้าหลักร้านค้า</a>
-            <a href="#web" onclick="toggleMenu()">💻 งานเว็บ</a>
-            <a href="#idcard" onclick="toggleMenu()">💳 ป้ายไอดี</a>
-            <a href="#groups" onclick="toggleMenu()">📦 กลุ่มงานต่างๆ</a>
-            <a href="#info" onclick="toggleMenu()">📌 ข้อมูลเพิ่มเติม</a>
+            <div style="font-size: 30px; text-align: right; cursor: pointer; color: #ccc;" onclick="toggleMenu()">×</div>
+            <h2 class="font-eng">NONIOAEY</h2>
+            <div style="margin-top: 20px;">
+                <a href="#profile" onclick="toggleMenu()">🏠 HOME</a>
+                <a href="#web" onclick="toggleMenu()">💻 WEB DESIGN</a>
+                <a href="#idcard" onclick="toggleMenu()">💳 ID CARD</a>
+                <a href="#groups" onclick="toggleMenu()">📦 GROUPS</a>
+                <a href="#info" onclick="toggleMenu()">📌 INFO</a>
+            </div>
         </nav>
 
         <nav class="floating-nav">
             <div class="hamburger" onclick="toggleMenu()">☰</div>
             <span class="nav-brand">NONIOAEY</span>
-        </nav>
+            <div style="width: 24px;"></div> </nav>
 
-        <header id="profile" class="bento-card">
+        <header id="profile" class="bento-card profile-section">
             <div class="profile-img-box">
                 <img id="shop-profile-img" src="https://via.placeholder.com/150/C3E956/1F4B2C?text=N" alt="Profile">
-                <div id="edit-img-btn" class="edit-overlay" onclick="changeProfileImg()">เปลี่ยนรูป</div>
+                <div id="edit-img-btn" class="edit-overlay" onclick="changeProfileImg()">CHANGE</div>
             </div>
             <h1 class="brand-title">NONIOAEY</h1>
-            <p class="brand-subtitle">Store</p>
-            <p class="brand-desc">รับทำป้ายขายไอดี , ทำเว็บร้าน ,<br>ปล่อยเช่ารหัส , อื่นๆ</p>
+            <p class="brand-subtitle">Premium Store</p>
+            <p class="brand-desc" id="shop-desc">รับทำป้ายขายไอดี • ทำเว็บร้าน • ปล่อยเช่ารหัส<br>และบริการอื่นๆ ครบวงจร</p>
         </header>
 
         <section id="web" class="bento-card">
-            <h2 class="section-title">💻 งานเว็บ</h2>
-            <p style="font-size: 13px; margin-bottom: 15px; opacity: 0.9;"><strong>สังเขป:</strong> รับทำเว็บไซต์ลิงก์ร้าน มีทั้งเทมเพลตให้เลือกและงานสั่งทำพิเศษ สามารถสอบถามได้ ราคาเริ่มต้นที่ 69 บาท</p>
+            <h2 class="section-title">💻 WEB DESIGN</h2>
             <div class="info-box">
-                <strong>เรทราคาเว็บ</strong>
+                <strong>อัตราค่าบริการ</strong>
                 <ul class="price-list">
                     <li><span>เว็บโอนเงิน</span><span>69.-</span></li>
-                    <li><span>เว็บตัวอย่างผลงาน</span><span>109.-</span></li>
-                    <li><span>เว็บรายละเอียดต่างๆ</span><span>159.-</span></li>
-                    <li><span>เว็บผลงาน + รายละเอียด</span><span>209.-</span></li>
-                </ul>
-                <p class="note">* เว็บอื่นๆ สามารถส่งรายละเอียดมาสอบถามราคาได้</p>
-            </div>
-            <div class="info-box">
-                <strong>ราคาบวกเพิ่ม & เงื่อนไข</strong>
-                <ul class="bullet-list">
-                    <li>แก้ฟรี 1 ครั้งก่อนส่งลิงก์ (หลังแก้จุดละ 5 บาท)</li>
-                    <li>รูปที่ 1 - 3 ใส่ฟรี (เพิ่มรูป รูปละ 10 บาท)</li>
-                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะแจ้งก่อน</li>
+                    <li><span>เว็บผลงาน</span><span>109.-</span></li>
+                    <li><span>เว็บรายละเอียด</span><span>159.-</span></li>
+                    <li><span>เว็บ Full Set</span><span>209.-</span></li>
                 </ul>
             </div>
-            <h4 class="gallery-title">ตัวอย่างผลงาน</h4>
             <div id="gallery-web" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ เพิ่มผลงาน</button>
+            <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ ADD WORK</button>
         </section>
 
         <section id="idcard" class="bento-card">
-            <h2 class="section-title">💳 ป้ายไอดี</h2>
-            <p style="font-size: 13px; margin-bottom: 15px; opacity: 0.9;"><strong>สังเขป:</strong> รับทำป้ายขายไอดี</p>
+            <h2 class="section-title">💳 ID CARD</h2>
             <div class="info-box">
-                <strong>เรทราคา</strong>
-                <p class="font-eng" style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">— 𝖲𝗄𝗂𝗇 𝖱𝖺𝗍𝖾</p>
-                <ul class="price-list" style="margin-bottom: 10px;">
-                    <li><span>1 - 100 สกิน</span><span>สกินละ 0.50</span></li>
-                    <li><span>100+ สกิน</span><span>สกินละ 1.00</span></li>
-                </ul>
-                <p class="font-eng" style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">— 𝖮𝗍𝗁𝖾𝗋𝗌</p>
+                <strong>Skin Rate</strong>
                 <ul class="price-list">
-                    <li><span>หัวป้าย</span><span>35.-</span></li>
-                    <li><span>ป้ายไฟ</span><span>2.- / ชิ้น</span></li>
-                    <li><span>ประดับ</span><span>0.50 / ชิ้น</span></li>
+                    <li><span>1-100 Skins</span><span>0.50/ea</span></li>
+                    <li><span>100+ Skins</span><span>1.00/ea</span></li>
                 </ul>
             </div>
-            <div class="info-box">
-                <strong>เงื่อนไข</strong>
-                <ul class="bullet-list">
-                    <li>แก้ฟรี 1 ครั้งก่อนส่งงาน (หลังแก้จุดละ 5 บาท)</li>
-                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะแจ้งก่อน</li>
-                </ul>
-            </div>
-            <h4 class="gallery-title">ตัวอย่างงาน (กดขยายได้)</h4>
             <div id="gallery-idcard" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ เพิ่มผลงาน</button>
+            <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ ADD WORK</button>
         </section>
 
         <section id="groups" class="bento-card">
-            <h2 class="section-title">📦 กลุ่มงานต่างๆ</h2>
-            <div style="margin-bottom: 20px;">
-                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">• กลุ่มบล็อกป้ายเเละของตกเเต่ง</h4>
+            <h2 class="section-title">📦 GROUPS</h2>
+            <div style="margin-bottom: 25px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• บล็อกป้าย & ของตกแต่ง</h4>
                 <div id="gallery-block" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ เพิ่มผลงาน</button>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ ADD</button>
             </div>
-            <hr style="border: 0; border-top: 1px dashed #91EAAF; margin: 15px 0;">
-            <div style="margin-bottom: 20px;">
-                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">• กลุ่ม ROV</h4>
+            <div style="margin-bottom: 25px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม ROV / Identity V</h4>
                 <div id="gallery-rov" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed #91EAAF; margin: 15px 0;">
-            <div style="margin-bottom: 20px;">
-                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">• กลุ่ม Identity V</h4>
-                <div id="gallery-idv" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-idv', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed #91EAAF; margin: 15px 0;">
-            <div style="margin-bottom: 20px;">
-                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">• กลุ่มฟอร์ม</h4>
-                <div id="gallery-form" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-form', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed #91EAAF; margin: 15px 0;">
-            <div>
-                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">• กลุ่มคอร์สสอนทำเว็บ</h4>
-                <div id="gallery-course" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-course', 'link')">+ เพิ่มผลงาน</button>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ ADD</button>
             </div>
         </section>
 
         <section id="info" class="bento-card">
-            <h2 class="section-title">📌 ข้อมูลเพิ่มเติม</h2>
-            <div style="margin-bottom: 15px;">
-                <h4 style="font-size: 14px; font-weight: 600;">• ข้อสงสัย (FAQ)</h4>
-                <p style="font-size: 13px; opacity: 0.7; margin-top: 5px;">(จิ้มเพื่อพิมพ์คำถามที่พบบ่อยได้เลย)</p>
-            </div>
-            <div>
-                <h4 style="font-size: 14px; font-weight: 600;">• วิธีสั่งซื้อ (How to Order)</h4>
-                <p style="font-size: 13px; opacity: 0.7; margin-top: 5px;">1. ...<br>2. ...</p>
-            </div>
-            <div class="contact-grid">
-                <a href="https://www.facebook.com/share/1De6NiueGU/?mibextid=wwXIfr" target="_blank" class="contact-btn btn-fb">Facebook</a>
-                <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="contact-btn btn-line">LINE</a>
+            <h2 class="section-title">📌 INFO</h2>
+            <div class="info-box">
+                <strong>FAQ / คำถามที่พบบ่อย</strong>
+                <p id="faq-text">จิ้มแก้ไขข้อความตรงนี้ได้เลย...</p>
             </div>
         </section>
 
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-            <img id="lightbox-img" src="" alt="Zoomed">
+        <div id="admin-actions">
+            <button class="admin-save-btn" onclick="exitEditMode()">บันทึกข้อมูลและปิดแก้ไข ✅</button>
         </div>
 
+        <nav class="bottom-nav font-eng">
+            <a href="#profile" class="nav-link active"><span>🏠</span><span>HOME</span></a>
+            <a href="#web" class="nav-link"><span>💻</span><span>WEB</span></a>
+            <a href="#idcard" class="nav-link"><span>💳</span><span>ID</span></a>
+            <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="nav-link"><span>💬</span><span>LINE</span></a>
+        </nav>
+
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // 1. ตั้งค่า Firebase ที่ได้มาจากคุณ
-        const firebaseConfig = {
-            apiKey: "AIzaSyB2Mch0yd2mbola0DZ9xfJuVX1hgCDVksI",
-            authDomain: "nonioaey.firebaseapp.com",
-            databaseURL: "https://nonioaey-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "nonioaey",
-            storageBucket: "nonioaey.firebasestorage.app",
-            messagingSenderId: "869706261711",
-            appId: "1:869706261711:web:aed2a22c1d6e8ec4ad03ba"
-        };
-
-        // 2. เริ่มต้นระบบฐานข้อมูล
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // 3. โหลดผลงานจากฐานข้อมูลแบบอัตโนมัติตอนเปิดเว็บ
-        const allGalleries = ['gallery-web', 'gallery-idcard', 'gallery-block', 'gallery-rov', 'gallery-idv', 'gallery-form', 'gallery-course'];
-        
-        allGalleries.forEach(galleryId => {
-            db.ref('galleries/' + galleryId).on('value', (snapshot) => {
-                const container = document.getElementById(galleryId);
-                container.innerHTML = ''; // ล้างของเก่าทิ้ง เตรียมรับข้อมูลใหม่จาก Firebase
-                
-                snapshot.forEach((child) => {
-                    const data = child.val();
-                    let linkBtnHTML = data.linkUrl ? `<a href="${data.linkUrl}" class="preview-btn" target="_blank">ดูตัวอย่าง</a>` : '';
-                    let imgAction = data.type === 'lightbox' ? `onclick="openLightbox(this.src)"` : '';
-                    
-                    let html = `
-                        <img src="${data.imgUrl}" ${imgAction} alt="${data.title}">
-                        <h4>${data.title}</h4>
-                        ${data.type !== 'lightbox' ? linkBtnHTML : ''}
-                    `;
-                    let div = document.createElement("div");
-                    div.className = "gallery-item";
-                    div.innerHTML = html;
-                    container.appendChild(div);
-                });
-            });
-        });
-
-        // 4. ฟังก์ชันควบคุมหน้าเว็บ
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
+        // 1. ระบบความปลอดภัย (รหัส Oo1122 -> Base64: T28xMTIy)
         function unlockAdmin() {
-            let pw = prompt("ใส่รหัสผ่านเพื่อแก้ไข:");
-            if (pw === "1234") { // เปลี่ยนรหัสผ่านจาก 1234 เป็นเลขอื่นได้ตรงนี้นะครับ!
-                alert("ปลดล็อกโหมดแอดมิน! เพิ่มผลงานได้เลย");
+            let pw = prompt("ADMIN PASSWORD:");
+            if (pw !== null && btoa(pw) === "T28xMTIy") {
+                alert("ACCESS GRANTED ✨");
                 document.body.contentEditable = "true";
-                document.querySelectorAll('a').forEach(l => l.contentEditable = "false"); 
-                
-                document.querySelectorAll('.admin-add-btn').forEach(btn => {
-                    btn.style.display = 'block';
-                    btn.contentEditable = "false";
+                document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn').forEach(el => {
+                    el.contentEditable = "false";
+                    if(el.tagName === 'A') el.style.pointerEvents = "none";
                 });
-            } else {
-                alert("รหัสผ่านไม่ถูกต้อง!");
-            }
+                document.querySelectorAll('.admin-add-btn').forEach(btn => btn.style.display = 'block');
+                document.getElementById('edit-img-btn').style.display = 'flex';
+                document.getElementById('admin-actions').style.display = 'flex';
+                window.scrollTo(0, 0);
+            } else if (pw !== null) { alert("WRONG PASSWORD!"); }
         }
 
-        // 5. แก้ไขฟังก์ชันเพิ่มผลงานให้เซฟลง Firebase
-        function addNewItem(galleryId, type) {
-            let imgUrl = prompt("1. ใส่ลิงก์รูปภาพ (URL):");
-            if (!imgUrl) return;
+        function exitEditMode() {
+            document.body.contentEditable = "false";
+            document.querySelectorAll('a').forEach(l => l.style.pointerEvents = "auto");
+            document.querySelectorAll('.admin-add-btn, #admin-actions, .edit-overlay').forEach(el => el.style.display = 'none');
+            alert("บันทึกหน้าจอแล้ว! (ระบบจะบันทึกข้อความที่พิมพ์อัตโนมัติหากเชื่อมฐานข้อมูล)");
+        }
 
-            let title = prompt("2. ใส่ชื่อผลงาน:");
-            if (!title) return;
+        // 2. ระบบบีบอัดรูป & เลือกไฟล์
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = e => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 600;
+                    const scale = MAX_WIDTH / img.width;
+                    canvas.width = MAX_WIDTH;
+                    canvas.height = img.height * scale;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    callback(canvas.toDataURL('image/jpeg', 0.7));
+                };
+            };
+        }
 
-            let linkUrl = "";
-            if (type !== 'lightbox') {
-                linkUrl = prompt("3. ใส่ลิงก์เว็บตัวอย่าง:\n(ถ้าไม่มีกด OK ผ่านไปได้เลย)") || "";
-            }
+        function changeProfileImg() {
+            let input = document.createElement('input');
+            input.type = 'file'; input.accept = 'image/*';
+            input.onchange = e => {
+                compressImage(e.target.files[0], base64 => {
+                    document.getElementById('shop-profile-img').src = base64;
+                });
+            };
+            input.click();
+        }
 
-            // ส่งข้อมูลพุ่งตรงไปเก็บใน Firebase
-            db.ref('galleries/' + galleryId).push({
-                imgUrl: imgUrl,
-                title: title,
-                type: type,
-                linkUrl: linkUrl
+        // 3. ระบบ Firebase
+        let db;
+        try {
+            // *** ใส่ Firebase Config ของคุณตรงนี้ ***
+            const firebaseConfig = {
+                apiKey: "AIzaSyB2Mch0yd2mbola0DZ9xfJuVX1hgCDVksI",
+                authDomain: "nonioaey.firebaseapp.com",
+                databaseURL: "https://nonioaey-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "nonioaey",
+                storageBucket: "nonioaey.firebasestorage.app",
+                messagingSenderId: "869706261711",
+                appId: "1:869706261711:web:aed2a22c1d6e8ec4ad03ba"
+            };
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+
+            const galleries = ['gallery-web', 'gallery-idcard', 'gallery-block', 'gallery-rov'];
+            galleries.forEach(id => {
+                db.ref('galleries/' + id).on('value', snap => {
+                    const cont = document.getElementById(id);
+                    if(!cont) return;
+                    cont.innerHTML = '';
+                    snap.forEach(child => {
+                        const d = child.val();
+                        let btn = d.linkUrl ? `<a href="${d.linkUrl}" class="preview-btn" target="_blank">ดูตัวอย่างผลงาน</a>` : '';
+                        let action = d.type === 'lightbox' ? `onclick="openLightbox(this.src)"` : '';
+                        cont.innerHTML += `<div class="gallery-item"><img src="${d.imgUrl}" ${action}><h4>${d.title}</h4>${d.type !== 'lightbox' ? btn : ''}</div>`;
+                    });
+                });
             });
-            alert("บันทึกผลงานลงฐานข้อมูลสำเร็จ ถาวร 100%!");
+        } catch (e) { console.error(e); }
+
+        function addNewItem(id, type) {
+            let input = document.createElement('input');
+            input.type = 'file'; input.accept = 'image/*';
+            input.onchange = e => {
+                let title = prompt("ชื่อผลงาน:"); if(!title) return;
+                let link = type === 'link' ? prompt("ลิงก์ตัวอย่าง (https://...):") : "";
+                compressImage(e.target.files[0], base64 => {
+                    if(db) db.ref('galleries/' + id).push({ imgUrl: base64, title: title, type: type, linkUrl: link });
+                });
+            };
+            input.click();
         }
 
-        function openLightbox(imageSrc) {
-            if (document.body.contentEditable === "true") return; 
-            document.getElementById('lightbox-img').src = imageSrc;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+        function openLightbox(src) { if(document.body.contentEditable === "true") return; document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
     </script>
 </body>
 </html>
