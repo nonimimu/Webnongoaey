@@ -5,189 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NONIOAEY - ร้านรับทำป้ายและเว็บไซต์</title>
     
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            bg: '#F4FFFC',
+                            dark: '#1F4B2C',
+                            mint: '#91EAAF',
+                            neon: '#C3E956'
+                        }
+                    },
+                    boxShadow: {
+                        'glow-neon': '0 0 15px rgba(195, 233, 86, 0.5)',
+                        'glow-mint': '0 0 20px rgba(145, 234, 175, 0.4)',
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                        'twinkle': 'twinkle 4s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        pulseGlow: { '0%, 100%': { opacity: '0.8', filter: 'drop-shadow(0 0 6px currentColor)' }, '50%': { opacity: '0.3', filter: 'drop-shadow(0 0 2px currentColor)' } },
+                        twinkle: { '0%': { opacity: '0.2', transform: 'scale(0.8)' }, '100%': { opacity: '1', transform: 'scale(1.2)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --bg-body: #F4FFFC;
-            --main-green: #1F4B2C;
-            --pastel-green: #E2F9EB;
-            --mint-green: #91EAAF;
-            --neon-green: #C3E956;
-            --glass: rgba(255, 255, 255, 0.55);
-        }
+        html, body { max-width: 100vw; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
+        * { -webkit-tap-highlight-color: transparent; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; }
-        body, p, span, h1, h2, h3, h4, a, button, li { font-family: 'Mitr', sans-serif; color: var(--main-green); }
-        .font-eng, .font-eng * { font-family: 'Fredoka', sans-serif !important; }
-
-        /* ลูกเล่น: พื้นหลังไล่สีเคลื่อนไหวได้ */
         body {
-            background: linear-gradient(-45deg, #F4FFFC, #E2F9EB, #dfffe5, #f0fff4);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
+            font-family: 'Mitr', sans-serif !important;
+            background-color: #F4FFFC;
+            color: #1F4B2C;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(145, 234, 175, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(195, 233, 86, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(226, 249, 235, 0.6) 0%, transparent 40%);
+            background-attachment: fixed;
         }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .font-eng { font-family: 'Fredoka', sans-serif !important; }
+        ::-webkit-scrollbar { width: 0px; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 30px rgba(145, 234, 175, 0.15);
+            border-radius: 24px;
         }
 
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .container { max-width: 480px; margin: 0 auto; padding: 15px 15px 40px 15px; position: relative; }
-
-        /* กล่อง Glassmorphism สุดปัง + ลูกเล่นตอน Hover */
-        .bento-card {
-            background: var(--glass);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 30px; padding: 25px; margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(145, 234, 175, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            scroll-margin-top: 80px;
-        }
-        .bento-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(195, 233, 86, 0.3);
-        }
-
-        /* เมนูลอยแคปซูล */
-        .floating-nav {
-            position: sticky; top: 15px; z-index: 50;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 50px;
-            padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 20px rgba(31, 75, 44, 0.08); margin-bottom: 25px;
-        }
-        .hamburger { font-size: 24px; cursor: pointer; transition: 0.2s; }
-        .hamburger:active { transform: scale(0.9); }
-        .nav-brand { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: 1px; }
-
-        /* ส่วนโปรไฟล์ + ลูกเล่นลอยตัว */
-        .profile-section { text-align: center; }
-        .profile-img-box {
-            width: 105px; height: 105px; margin: 0 auto 15px;
-            border-radius: 50%; border: 4px solid white; overflow: hidden;
-            box-shadow: 0 8px 20px rgba(145, 234, 175, 0.4);
-            position: relative; background: #fff;
-            animation: float 3s ease-in-out infinite; /* ลอยขึ้นลง */
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-        .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .edit-overlay {
-            position: absolute; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.5); color: white; display: none;
-            align-items: center; justify-content: center; font-size: 12px; cursor: pointer;
-        }
-        
-        /* ลูกเล่นตัวหนังสือไล่สี */
-        .gradient-text {
-            background: linear-gradient(45deg, #1F4B2C, #4D7111);
+        .text-gradient {
+            background: linear-gradient(to right, #1F4B2C, #4D7111, #1F4B2C);
+            background-size: 200% auto;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block;
+            color: transparent;
+            animation: gradientMove 6s linear infinite;
         }
+        @keyframes gradientMove { to { background-position: 200% center; } }
+        
+        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 8px; }
+        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: #91EAAF; font-weight: bold; font-size: 18px; top: -2px;}
 
-        .brand-title { font-family: 'Fredoka', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 5px; }
-        .brand-subtitle { font-family: 'Fredoka', sans-serif; color: var(--mint-green); font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; }
-
-        /* หัวข้อ Sections */
-        .section-title {
-            font-size: 20px; font-weight: 600; margin-bottom: 20px; text-align: center;
-            position: relative; padding-bottom: 10px;
+        /* ปุ่มแฮมเบอร์เกอร์และ Sidebar (เพิ่มกลับมาแล้ว!) */
+        .hamburger-btn {
+            position: fixed; top: 15px; left: 15px; z-index: 100;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 22px; cursor: pointer; color: #1F4B2C;
+            box-shadow: 0 4px 15px rgba(145, 234, 175, 0.3);
+            border: 1px solid white; transition: 0.2s;
         }
-        .section-title::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 50px; height: 4px; background: var(--neon-green); border-radius: 10px;
-            box-shadow: 0 0 10px rgba(195, 233, 86, 0.8);
-        }
+        .hamburger-btn:active { transform: scale(0.9); }
 
-        /* กล่องข้อมูลและรายละเอียด */
-        .info-box { background: rgba(255,255,255,0.6); padding: 18px; border-radius: 20px; margin-bottom: 15px; font-size: 13px; border: 1px solid rgba(255,255,255,0.8); }
-        .price-list { list-style: none; margin-top: 10px; }
-        .price-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed rgba(145,234,175,0.5); }
-        .price-list li:last-child { border: none; }
-        .bullet-list { list-style: none; padding-left: 5px; margin-top: 10px; }
-        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 6px; line-height: 1.5; }
-        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--mint-green); font-weight: bold; font-size: 16px;}
-
-        /* แกลเลอรี่ */
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .gallery-item {
-            background: white; padding: 10px; border-radius: 20px; text-align: center;
-            border: 1px solid rgba(145,234,175,0.3); transition: 0.3s;
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(145,234,175,0.4); }
-        .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; margin-bottom: 8px; cursor: pointer; }
-        .gallery-item h4 { font-size: 12px; font-weight: 500; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .preview-btn {
-            display: block; background: var(--neon-green); color: var(--main-green);
-            text-decoration: none; padding: 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
-            margin-top: auto; border: none; width: 100%; transition: 0.2s;
-        }
-        .preview-btn:active { transform: scale(0.95); }
-
-        /* เมนู Sidebar (สไลด์จากซ้าย) */
         .sidebar {
             position: fixed; top: 0; left: -100%; width: 260px; height: 100%;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+            background: rgba(244, 255, 252, 0.95); backdrop-filter: blur(15px);
             z-index: 1000; padding: 25px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 10px 0 30px rgba(0,0,0,0.1); border-right: 2px solid var(--pastel-green);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1); border-right: 2px solid #E2F9EB;
         }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 12px 15px; margin-bottom: 10px; background: var(--bg-body); border-radius: 12px; text-decoration: none; font-weight: 500; font-size: 14px;}
-
-        /* ปุ่มติดต่อ */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .contact-btn { padding: 12px; border-radius: 15px; color: white; text-align: center; text-decoration: none; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px; transition: 0.2s; }
-        .contact-btn:active { transform: scale(0.95); }
-        .btn-fb { background: linear-gradient(45deg, #1877F2, #4facfe); }
-        .btn-line { background: linear-gradient(45deg, #06C755, #20E2D7); }
-
-        /* กุญแจแอดมิน (เปลี่ยนให้น่ารักและเห็นชัดขึ้น) */
-        .admin-trigger { 
-            position: absolute; top: 18px; right: 20px; /* ย้ายมาขวาบนเหมือนเดิม */
-            background: rgba(255,255,255,0.8); width: 35px; height: 35px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 100; cursor: pointer; transition: 0.3s;
+        .sidebar a {
+            display: block; padding: 12px 15px; margin-bottom: 10px;
+            background: white; border-radius: 12px; text-decoration: none;
+            font-weight: 500; font-size: 14px; color: #1F4B2C;
+            border: 1px solid rgba(145,234,175,0.3); transition: 0.2s;
         }
-        .admin-trigger:active { transform: scale(0.8); }
+        .sidebar a:active { background: #E2F9EB; }
 
-        .admin-add-btn { width: 100%; padding: 12px; background: var(--main-green); color: white; border: none; border-radius: 15px; margin-top: 15px; display: none; cursor: pointer; font-family: 'Mitr'; font-size: 12px;}
-        #admin-actions {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 101; display: none; width: 90%; max-width: 400px;
-        }
-        .admin-save-btn {
-            width: 100%; background: var(--neon-green); color: var(--main-green);
-            border: none; padding: 15px; border-radius: 18px; font-weight: 700;
-            box-shadow: 0 5px 20px rgba(195, 233, 86, 0.5); cursor: pointer; font-family: 'Mitr'; font-size: 14px;
-        }
-
-        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .lightbox img { max-width: 100%; max-height: 80vh; border-radius: 20px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .admin-trigger { position: absolute; top: 15px; right: 20px; font-size: 20px; opacity: 0.3; z-index: 100; cursor: pointer; }
+        .admin-add-btn { width: 100%; padding: 12px; background: #1F4B2C; color: white; border: none; border-radius: 16px; margin-top: 15px; font-family: 'Mitr'; font-size: 13px; display: none; cursor: pointer; }
+        #admin-actions { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 101; display: none; width: 90%; max-width: 400px; }
+        .admin-save-btn { width: 100%; background: #C3E956; color: #1F4B2C; border: none; padding: 15px; border-radius: 20px; font-weight: 600; font-family: 'Mitr'; font-size: 14px; box-shadow: 0 0 15px rgba(195,233,86,0.5); cursor: pointer; }
+        
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .lightbox img { max-width: 100%; max-height: 80vh; border-radius: 15px; }
     </style>
 </head>
-<body>
+<body class="antialiased min-h-screen relative overflow-x-hidden">
 
-    <div class="container">
-        
+    <div class="w-full overflow-x-hidden relative flex flex-col min-h-screen">
+
+        <div class="hamburger-btn" onclick="toggleMenu()">☰</div>
+
         <div class="admin-trigger" onclick="unlockAdmin()">🔑</div>
 
         <nav id="sidebar" class="sidebar">
             <div style="font-size: 30px; text-align: right; cursor: pointer; color: #ccc;" onclick="toggleMenu()">×</div>
-            <h2 class="font-eng gradient-text">NONIOAEY</h2>
-            <div style="margin-top: 20px;">
+            <h2 class="font-eng text-2xl font-bold text-gradient mb-6 mt-2">NONIOAEY</h2>
+            <div>
                 <a href="#profile" onclick="toggleMenu()">🏠 หน้าหลักร้านค้า</a>
                 <a href="#web" onclick="toggleMenu()">💻 งานเว็บ</a>
                 <a href="#idcard" onclick="toggleMenu()">💳 ป้ายไอดี</a>
@@ -196,166 +138,211 @@
             </div>
         </nav>
 
-        <nav class="floating-nav">
-            <div class="hamburger" onclick="toggleMenu()">☰</div>
-            <span class="nav-brand gradient-text">NONIOAEY</span>
-            <div style="width: 24px;"></div>
-        </nav>
-
-        <header id="profile" class="bento-card profile-section">
-            <div class="profile-img-box">
-                <img id="shop-profile-img" src="https://via.placeholder.com/150/C3E956/1F4B2C?text=N" alt="Profile">
-                <div id="edit-img-btn" class="edit-overlay" onclick="changeProfileImg()">เปลี่ยนรูป</div>
-            </div>
-            <h1 class="brand-title gradient-text">NONIOAEY</h1>
-            <p class="brand-subtitle">รับทำป้ายขายไอดี , ทำเว็บร้าน , ปล่อยเช่ารหัส , อื่นๆ</p>
-        </header>
-
-        <section id="web" class="bento-card">
-            <h2 class="section-title">💻 งานเว็บ</h2>
-            <div class="info-box">
-                <strong>สังเขป</strong>
-                <p>รับทำเว็บไซต์ลิงก์ร้าน มีทั้งเทมเพลตให้เลือกเเละงานสั่งทำพิเศษ สามารถสอบถามได้ ราคาเริ่มต้นที่ 69 บาท</p>
-            </div>
-            <div class="info-box">
-                <strong>เรทราคาเว็บ</strong>
-                <ul class="price-list">
-                    <li><span>เว็บโอนเงิน</span><span>69 บาท</span></li>
-                    <li><span>เว็บตัวอย่างผลงาน</span><span>109 บาท</span></li>
-                    <li><span>เว็บรายละเอียดต่างๆ</span><span>159 บาท</span></li>
-                    <li><span>เว็บตัวอย่างผลงาน + รายละเอียด</span><span>209 บาท</span></li>
-                </ul>
-                <p style="font-size: 11px; opacity: 0.7; margin-top: 10px;">* เว็บอื่นๆสามารถส่งรายละเอียดมาสอบถามราคาได้</p>
-            </div>
-            <div class="info-box">
-                <strong>ราคาบวกเพิ่ม & เงื่อนไข</strong>
-                <ul class="bullet-list">
-                    <li>เเก้ฟรี 1 ครั้งก่อนส่งลิงก์ หลังส่งลิงก์เเก้จุดละ 5 บาท</li>
-                    <li>รูปที่ 1 - 3 ใส่ฟรี เพิ่มรูป รูปละ 10 บาท</li>
-                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
-                </ul>
-            </div>
-            <h4 style="font-size: 14px; font-weight: 600; text-align: center; margin-top: 20px;">ตัวอย่างผลงาน</h4>
-            <div id="gallery-web" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ เพิ่มผลงาน</button>
-        </section>
-
-        <section id="idcard" class="bento-card">
-            <h2 class="section-title">💳 ป้ายไอดี</h2>
-            <div class="info-box">
-                <strong>สังเขป: </strong><span>รับทำป้ายขายไอดี</span>
-            </div>
-            <div class="info-box">
-                <strong>เรทราคา</strong>
-                <p class="font-eng" style="font-weight: 600;">— 𝖲𝗄𝗂𝗇 𝖱𝖺𝗍𝖾</p>
-                <ul class="price-list" style="margin-bottom: 10px;">
-                    <li><span>1 - 100 สกิน</span><span>สกินละ 0.50</span></li>
-                    <li><span>100+ สกิน</span><span>สกินละ 1.00</span></li>
-                </ul>
-                <p class="font-eng" style="font-weight: 600;">— 𝖮𝗍𝗁𝖾𝗋𝗌</p>
-                <ul class="price-list">
-                    <li><span>หัวป้าย</span><span>35.-</span></li>
-                    <li><span>ป้ายไฟ</span><span>2.- / ชิ้น</span></li>
-                    <li><span>ประดับ</span><span>0.50 / ชิ้น</span></li>
-                </ul>
-            </div>
-            <div class="info-box">
-                <strong>เงื่อนไข</strong>
-                <ul class="bullet-list">
-                    <li>เเก้ฟรี 1 ครั้งก่อนส่งงาน หลังส่งงานเเก้จุดละ 5 บาท</li>
-                    <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
-                </ul>
-            </div>
-            <h4 style="font-size: 14px; font-weight: 600; text-align: center; margin-top: 20px;">ตัวอย่างงาน (กดขยายรูปได้)</h4>
-            <div id="gallery-idcard" class="gallery-grid"></div>
-            <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ เพิ่มผลงาน</button>
-        </section>
-
-        <section id="groups" class="bento-card">
-            <h2 class="section-title">📦 กลุ่มงานต่างๆ</h2>
-            <div style="margin-bottom: 20px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มบล็อกป้ายเเละของตกเเต่ง</h4>
-                <div id="gallery-block" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม ROV</h4>
-                <div id="gallery-rov" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่ม identity v</h4>
-                <div id="gallery-idv" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-idv', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <div style="margin-bottom: 20px; border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มฟอร์ม</h4>
-                <div id="gallery-form" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-form', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-            <div style="border-top: 1px dashed rgba(145,234,175,0.6); padding-top: 15px;">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">• กลุ่มคอร์สสอนทำเว็บ</h4>
-                <div id="gallery-course" class="gallery-grid"></div>
-                <button class="admin-add-btn" onclick="addNewItem('gallery-course', 'link')">+ เพิ่มผลงาน</button>
-            </div>
-        </section>
-
-        <section id="info" class="bento-card">
-            <h2 class="section-title">📌 ข้อมูลเพิ่มเติม</h2>
-            <div class="info-box">
-                <strong>• ข้อสงสัย (FAQ)</strong>
-                <p>จิ้มแก้ไขและพิมพ์คำถามที่พบบ่อย 3-5 ข้อ พร้อมคำตอบตรงนี้ได้เลย...</p>
-            </div>
-            <div class="info-box">
-                <strong>• เรทราคา (สรุป)</strong>
-                <p>จิ้มแก้ไขเพื่อสรุปเรทราคาเป็นข้อๆ ได้เลย...</p>
-            </div>
-            <div class="info-box">
-                <strong>• วิธีสั่งซื้อ (How to Order)</strong>
-                <p>1. ...<br>2. ...<br>3. ...</p>
-            </div>
-            
-            <div class="contact-grid">
-                <a href="https://www.facebook.com/share/1De6NiueGU/?mibextid=wwXIfr" target="_blank" class="contact-btn btn-fb">Facebook</a>
-                <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="contact-btn btn-line">Line</a>
-            </div>
-        </section>
-
-        <div id="admin-actions">
-            <button class="admin-save-btn" onclick="exitEditMode()">บันทึกข้อมูลและปิดโหมดแก้ไข ✅</button>
+        <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+            <svg class="absolute inset-0 w-full h-full opacity-50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="elegant-stars" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
+                        <path d="M12 2L12.5 10L20 10.5L12.5 11L12 19L11.5 11L4 10.5L11.5 10Z" fill="#C3E956" opacity="0.4" transform="scale(0.5) translate(40, 40)"/>
+                        <circle cx="100" cy="30" r="1.5" fill="#91EAAF" opacity="0.6"/>
+                        <path d="M12 2L13 9L20 10L13 11L12 18L11 11L4 10L11 9Z" fill="#1F4B2C" opacity="0.15" transform="scale(0.3) translate(350, 300)"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#elegant-stars)" />
+            </svg>
+            <svg class="absolute top-16 right-10 w-20 h-20 text-green-mint/40 animate-float-slow" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="absolute bottom-32 left-10 w-12 h-12 text-green-neon/40 animate-pulse-glow" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/></svg>
         </div>
 
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+        <main class="max-w-md mx-auto px-4 py-16 relative z-10 flex flex-col gap-6">
+
+            <header id="profile" class="text-center space-y-4 mb-2 relative flex flex-col items-center">
+                <div class="relative w-32 h-32 mb-2 group z-20">
+                    <div class="absolute inset-0 bg-white/40 rounded-full blur-2xl transition-colors duration-700"></div>
+                    <div class="absolute inset-0 border border-green-neon/60 rounded-full animate-spin-slow" style="border-top-color: transparent;"></div>
+                    <div class="absolute inset-[-4px] border border-green-mint/50 rounded-full animate-spin-slow" style="border-bottom-color: transparent; animation-direction: reverse;"></div>
+                    
+                    <img id="shop-profile-img" src="https://via.placeholder.com/150/C3E956/1F4B2C?text=N" class="w-full h-full object-cover rounded-full border-[3px] border-white shadow-glow-mint relative z-10">
+                    <div id="edit-img-btn" class="absolute inset-0 bg-black/50 text-white rounded-full z-30 hidden items-center justify-center text-xs cursor-pointer" onclick="changeProfileImg()">เปลี่ยนรูป</div>
+
+                    <svg class="absolute -top-1 -right-2 w-8 h-8 text-green-neon animate-twinkle z-20 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L13.1 9.9L21 11L13.1 12.1L12 20L10.9 12.1L3 11L10.9 9.9L12 2Z"/></svg>
+                </div>
+
+                <div class="relative mt-2">
+                    <h1 class="font-eng text-5xl font-bold text-gradient tracking-wider py-1 drop-shadow-md">NONIOAEY</h1>
+                </div>
+
+                <div class="inline-flex items-center justify-center gap-3 bg-white/80 backdrop-blur-md px-6 py-2.5 rounded-full border border-green-neon/50 shadow-glow-neon relative z-10 mt-2">
+                    <svg class="absolute -left-2 -top-1 w-4 h-4 text-green-mint animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/></svg>
+                    <h2 class="text-[13px] font-medium text-green-dark tracking-wide">รับทำป้ายขายไอดี , ทำเว็บร้าน , ปล่อยเช่ารหัส , อื่นๆ</h2>
+                </div>
+            </header>
+
+            <section id="web" class="glass-card p-6 border-t-4 border-t-green-neon">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <span class="text-2xl">💻</span> งานเว็บ
+                </h3>
+                <div class="bg-white/50 p-4 rounded-2xl mb-4 border border-white">
+                    <p class="text-[13px] leading-relaxed"><strong>สังเขป:</strong> รับทำเว็บไซต์ลิงก์ร้าน มีทั้งเทมเพลตให้เลือกเเละงานสั่งทำพิเศษ สามารถสอบถามได้ราคาเริ่มต้นที่ 69 บาท</p>
+                </div>
+                
+                <div class="space-y-2 text-[14px]">
+                    <p class="font-semibold text-green-dark bg-green-mint/20 px-3 py-1 rounded-lg inline-block mb-1">เรทราคาเว็บ</p>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-2"><span>เว็บโอนเงิน</span><span class="font-semibold">69.-</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-2"><span>เว็บตัวอย่างผลงาน</span><span class="font-semibold">109.-</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-2"><span>เว็บรายละเอียดต่างๆ</span><span class="font-semibold">159.-</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-2"><span>เว็บตัวอย่างผลงาน + รายละเอียด</span><span class="font-semibold">209.-</span></div>
+                    <p class="text-[11px] text-green-dark/60 pt-1">* เว็บอื่นๆสามารถส่งรายละเอียดมาสอบถามราคาได้</p>
+                </div>
+
+                <div class="mt-5">
+                    <p class="font-semibold text-green-dark bg-green-mint/20 px-3 py-1 rounded-lg inline-block mb-2">ราคาบวกเพิ่ม & เงื่อนไข</p>
+                    <ul class="bullet-list text-[13px]">
+                        <li>เเก้ฟรี 1 ครั้งก่อนส่งลิงก์ หลังส่งลิงก์เเก้จุดละ 5 บาท</li>
+                        <li>รูปที่ 1 - 3 ใส่ฟรี เพิ่มรูป รูปละ 10 บาท</li>
+                        <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
+                    </ul>
+                </div>
+
+                <h4 class="text-[14px] font-semibold text-center mt-6 mb-3">ตัวอย่างผลงาน</h4>
+                <div id="gallery-web" class="grid grid-cols-2 gap-3"></div>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-web', 'link')">+ เพิ่มผลงาน</button>
+            </section>
+
+            <section id="idcard" class="glass-card p-6 border-t-4 border-t-green-mint">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <span class="text-2xl">💳</span> ป้ายไอดี
+                </h3>
+                <div class="bg-white/50 p-4 rounded-2xl mb-4 border border-white text-[13px]">
+                    <p><strong>สังเขป:</strong> รับทำป้ายขายไอดี</p>
+                </div>
+
+                <div class="space-y-2 text-[14px]">
+                    <p class="font-semibold text-green-dark bg-green-mint/20 px-3 py-1 rounded-lg inline-block mb-1">เรทราคา</p>
+                    <p class="font-eng font-medium text-[13px] mt-1">— 𝖲𝗄𝗂𝗇 𝖱𝖺𝗍𝖾</p>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-1"><span>1 - 100 สกิน</span><span class="font-semibold">สกินละ 0.50</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-1"><span>100+ สกิน</span><span class="font-semibold">สกินละ 1.00</span></div>
+                    
+                    <p class="font-eng font-medium text-[13px] mt-3">— 𝖮𝗍𝗁𝖾𝗋𝗌</p>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-1"><span>หัวป้าย</span><span class="font-semibold">35.-</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-1"><span>ป้ายไฟ</span><span class="font-semibold">2.- / ชิ้น</span></div>
+                    <div class="flex justify-between border-b border-green-mint/30 pb-1"><span>ประดับ</span><span class="font-semibold">0.50 / ชิ้น</span></div>
+                </div>
+
+                <div class="mt-5">
+                    <p class="font-semibold text-green-dark bg-green-mint/20 px-3 py-1 rounded-lg inline-block mb-2">เงื่อนไข</p>
+                    <ul class="bullet-list text-[13px]">
+                        <li>เเก้ฟรี 1 ครั้งก่อนส่งงาน หลังส่งงานเเก้จุดละ 5 บาท</li>
+                        <li>รองาน 4 - 8 ชั่วโมง หากคิวเยอะจะเเจ้งก่อน</li>
+                    </ul>
+                </div>
+
+                <h4 class="text-[14px] font-semibold text-center mt-6 mb-3">ตัวอย่างงาน (กดที่รูปเพื่อขยาย)</h4>
+                <div id="gallery-idcard" class="grid grid-cols-2 gap-3"></div>
+                <button class="admin-add-btn" onclick="addNewItem('gallery-idcard', 'lightbox')">+ เพิ่มผลงาน</button>
+            </section>
+
+            <section id="groups" class="glass-card p-6 border-t-4 border-t-green-dark">
+                <h3 class="text-xl font-semibold mb-5 flex items-center gap-2">
+                    <span class="text-2xl">📦</span> กลุ่มงานต่างๆ
+                </h3>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-[14px] font-semibold mb-3 bg-white/60 px-3 py-1.5 rounded-lg border border-white">• กลุ่มบล็อกป้ายเเละของตกเเต่ง</h4>
+                        <div id="gallery-block" class="grid grid-cols-2 gap-3"></div>
+                        <button class="admin-add-btn" onclick="addNewItem('gallery-block', 'link')">+ เพิ่มผลงาน</button>
+                    </div>
+                    <div>
+                        <h4 class="text-[14px] font-semibold mb-3 bg-white/60 px-3 py-1.5 rounded-lg border border-white">• กลุ่ม ROV</h4>
+                        <div id="gallery-rov" class="grid grid-cols-2 gap-3"></div>
+                        <button class="admin-add-btn" onclick="addNewItem('gallery-rov', 'link')">+ เพิ่มผลงาน</button>
+                    </div>
+                    <div>
+                        <h4 class="text-[14px] font-semibold mb-3 bg-white/60 px-3 py-1.5 rounded-lg border border-white">• กลุ่ม identity v</h4>
+                        <div id="gallery-idv" class="grid grid-cols-2 gap-3"></div>
+                        <button class="admin-add-btn" onclick="addNewItem('gallery-idv', 'link')">+ เพิ่มผลงาน</button>
+                    </div>
+                    <div>
+                        <h4 class="text-[14px] font-semibold mb-3 bg-white/60 px-3 py-1.5 rounded-lg border border-white">• กลุ่มฟอร์ม</h4>
+                        <div id="gallery-form" class="grid grid-cols-2 gap-3"></div>
+                        <button class="admin-add-btn" onclick="addNewItem('gallery-form', 'link')">+ เพิ่มผลงาน</button>
+                    </div>
+                    <div>
+                        <h4 class="text-[14px] font-semibold mb-3 bg-white/60 px-3 py-1.5 rounded-lg border border-white">• กลุ่มคอร์สสอนทำเว็บ</h4>
+                        <div id="gallery-course" class="grid grid-cols-2 gap-3"></div>
+                        <button class="admin-add-btn" onclick="addNewItem('gallery-course', 'link')">+ เพิ่มผลงาน</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="info" class="glass-card p-6 border-t-4 border-t-white">
+                <h3 class="text-xl font-semibold mb-5 flex items-center gap-2">
+                    <span class="text-2xl">📌</span> ข้อมูลเพิ่มเติม
+                </h3>
+                <div class="space-y-5 text-[14px]">
+                    <div class="bg-white/50 p-4 rounded-2xl border border-white">
+                        <p class="font-semibold text-green-dark mb-2">• ข้อสงสัย (FAQ)</p>
+                        <p class="text-[13px] text-green-dark/80 leading-relaxed">(จิ้มข้อความเพื่อพิมพ์คำถามที่พบบ่อย พร้อมคำตอบตรงนี้ได้เลย...)</p>
+                    </div>
+                    <div class="bg-white/50 p-4 rounded-2xl border border-white">
+                        <p class="font-semibold text-green-dark mb-2">• เรทราคา</p>
+                        <p class="text-[13px] text-green-dark/80 leading-relaxed">(จิ้มข้อความเพื่อพิมพ์สรุปเรทราคาได้เลย...)</p>
+                    </div>
+                    <div class="bg-white/50 p-4 rounded-2xl border border-white">
+                        <p class="font-semibold text-green-dark mb-2">• วิธีสั่งซื้อ (How to Order)</p>
+                        <div class="text-[13px] text-green-dark/80 leading-relaxed">
+                            1. ...<br>2. ...<br>3. ...
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="flex gap-3 justify-center mt-2 mb-6">
+                <a href="https://www.facebook.com/share/1De6NiueGU/?mibextid=wwXIfr" target="_blank" class="flex-1 max-w-[160px] bg-gradient-to-r from-[#1877F2] to-[#4facfe] text-white py-3 rounded-2xl font-eng font-medium text-center shadow-lg hover:scale-105 transition-transform text-[14px]">Facebook</a>
+                <a href="https://line.me/ti/p/xnh050s5VP" target="_blank" class="flex-1 max-w-[160px] bg-gradient-to-r from-[#06C755] to-[#20E2D7] text-white py-3 rounded-2xl font-eng font-medium text-center shadow-lg hover:scale-105 transition-transform text-[14px]">Line</a>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="admin-actions">
+        <button class="admin-save-btn" onclick="exitEditMode()">บันทึกข้อมูลและปิดโหมดแก้ไข ✅</button>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Zoomed Image">
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // 1. ระบบปลดล็อก (รหัส Oo1122 -> T28xMTIy)
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+
         function unlockAdmin() {
-            let pw = prompt("ใส่รหัสผ่านแอดมิน:");
-            if (pw !== null && btoa(pw) === "T28xMTIy") {
-                alert("ปลดล็อกโหมดแก้ไขสำเร็จ! ✨");
+            let pw = prompt("ใส่รหัสผ่านเพื่อแก้ไข:");
+            if (pw !== null && btoa(pw) === "T28xMTIy") { 
+                alert("ปลดล็อกโหมดแก้ไข! สามารถพิมพ์แก้ข้อความและเพิ่มรูปได้เลยครับ ✨");
                 document.body.contentEditable = "true";
-                document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn').forEach(el => {
+                document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn, .hamburger-btn').forEach(el => {
                     el.contentEditable = "false";
                     if(el.tagName === 'A') el.style.pointerEvents = "none";
                 });
                 document.querySelectorAll('.admin-add-btn').forEach(btn => btn.style.display = 'block');
                 document.getElementById('edit-img-btn').style.display = 'flex';
                 document.getElementById('admin-actions').style.display = 'flex';
-            } else if (pw !== null) { alert("รหัสผ่านไม่ถูกต้อง ❌"); }
+            } else if (pw !== null) { 
+                alert("รหัสผ่านไม่ถูกต้อง ❌"); 
+            }
         }
 
         function exitEditMode() {
             document.body.contentEditable = "false";
             document.querySelectorAll('a').forEach(l => l.style.pointerEvents = "auto");
             document.querySelectorAll('.admin-add-btn, #admin-actions, .edit-overlay').forEach(el => el.style.display = 'none');
-            alert("ปิดโหมดแก้ไขเรียบร้อยแล้วจ้า! (ตัวหนังสือจะบันทึกอัตโนมัติหากต่อฐานข้อมูลไว้)");
+            alert("บันทึกและปิดโหมดแก้ไขเรียบร้อย! (ข้อความจะถูกบันทึกอัตโนมัติหากเชื่อมฐานข้อมูล)");
         }
 
-        // 2. บีบอัดรูป & เลือกรูปโปรไฟล์
         function compressImage(file, callback) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -364,12 +351,12 @@
                 img.src = e.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const scale = 600 / img.width;
+                    const scale = 600 / img.width; 
                     canvas.width = 600;
                     canvas.height = img.height * scale;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    callback(canvas.toDataURL('image/jpeg', 0.7));
+                    callback(canvas.toDataURL('image/jpeg', 0.8));
                 };
             };
         }
@@ -377,13 +364,17 @@
         function changeProfileImg() {
             let input = document.createElement('input');
             input.type = 'file'; input.accept = 'image/*';
-            input.onchange = e => {
-                compressImage(e.target.files[0], base64 => { document.getElementById('shop-profile-img').src = base64; });
-            };
+            input.onchange = e => { compressImage(e.target.files[0], base64 => { document.getElementById('shop-profile-img').src = base64; }); };
             input.click();
         }
 
-        // 3. ระบบ Firebase
+        function openLightbox(src) { 
+            if(document.body.contentEditable === "true") return; 
+            document.getElementById('lightbox-img').src = src; 
+            document.getElementById('lightbox').style.display = 'flex'; 
+        }
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+
         let db;
         try {
             const firebaseConfig = {
@@ -406,31 +397,38 @@
                     cont.innerHTML = '';
                     snap.forEach(child => {
                         const d = child.val();
-                        let btn = d.linkUrl ? `<a href="${d.linkUrl}" class="preview-btn" target="_blank">ดูตัวอย่าง</a>` : '';
+                        let btn = d.linkUrl ? `<a href="${d.linkUrl}" target="_blank" style="display:block; background:#C3E956; color:#1F4B2C; padding:8px; border-radius:12px; font-size:11px; font-weight:600; text-decoration:none; margin-top:auto;">ดูตัวอย่าง</a>` : '';
                         let action = d.type === 'lightbox' ? `onclick="openLightbox(this.src)"` : '';
-                        cont.innerHTML += `<div class="gallery-item"><img src="${d.imgUrl}" ${action}><h4>${d.title}</h4>${d.type !== 'lightbox' ? btn : ''}</div>`;
+                        
+                        cont.innerHTML += `
+                            <div style="background:white; padding:10px; border-radius:18px; text-align:center; display:flex; flex-direction:column; border:1px solid rgba(145,234,175,0.3);">
+                                <img src="${d.imgUrl}" ${action} style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; margin-bottom:8px; cursor:pointer;">
+                                <h4 style="font-size:12px; font-weight:500; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.title}</h4>
+                                ${d.type !== 'lightbox' ? btn : ''}
+                            </div>
+                        `;
                     });
                 });
             });
-        } catch (e) { console.error(e); }
+        } catch (e) { console.error("Firebase Error: ", e); }
 
         function addNewItem(id, type) {
             let input = document.createElement('input');
             input.type = 'file'; input.accept = 'image/*';
             input.onchange = e => {
-                let title = prompt("ชื่อผลงาน:"); if(!title) return;
-                let link = type === 'link' ? prompt("ลิงก์ดูตัวอย่าง (https://...):") : "";
-                alert("กำลังบันทึกภาพ รอสักครู่นะครับ...");
+                let title = prompt("ใส่ชื่อผลงาน:"); if(!title) return;
+                let link = type === 'link' ? prompt("ใส่ลิงก์ดูตัวอย่าง (เช่น https://...):\n(ไม่มีให้กด OK ผ่านได้เลย)") : "";
+                
+                alert("กำลังบีบอัดรูปและบันทึกลงระบบ รอสักครู่นะครับ...");
                 compressImage(e.target.files[0], base64 => {
-                    if(db) db.ref('galleries/' + id).push({ imgUrl: base64, title: title, type: type, linkUrl: link });
+                    if(db) {
+                        db.ref('galleries/' + id).push({ imgUrl: base64, title: title, type: type, linkUrl: link });
+                        alert("บันทึกผลงานสำเร็จ! 🌟");
+                    }
                 });
             };
             input.click();
         }
-
-        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-        function openLightbox(src) { if(document.body.contentEditable === "true") return; document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
-        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
     </script>
 </body>
 </html>
