@@ -16,12 +16,7 @@
             theme: {
                 extend: {
                     colors: {
-                        green: {
-                            bg: '#F4FFFC',
-                            dark: '#1F4B2C',
-                            mint: '#91EAAF',
-                            neon: '#C3E956'
-                        }
+                        green: { bg: '#F4FFFC', dark: '#1F4B2C', mint: '#91EAAF', neon: '#C3E956' }
                     },
                     boxShadow: {
                         'glow-neon': '0 0 15px rgba(195, 233, 86, 0.5)',
@@ -49,8 +44,7 @@
 
         body {
             font-family: 'Mitr', sans-serif !important;
-            background-color: #F4FFFC;
-            color: #1F4B2C;
+            background-color: #F4FFFC; color: #1F4B2C;
             background-image: 
                 radial-gradient(circle at 20% 30%, rgba(145, 234, 175, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(195, 233, 86, 0.2) 0%, transparent 50%),
@@ -71,10 +65,7 @@
         .text-gradient {
             background: linear-gradient(to right, #1F4B2C, #4D7111, #1F4B2C);
             background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
+            -webkit-background-clip: text; color: transparent;
             animation: gradientMove 6s linear infinite;
         }
         @keyframes gradientMove { to { background-position: 200% center; } }
@@ -82,15 +73,14 @@
         .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 8px; }
         .bullet-list li::before { content: "•"; position: absolute; left: 0; color: #91EAAF; font-weight: bold; font-size: 18px; top: -2px;}
 
-        /* ปุ่มแฮมเบอร์เกอร์และ Sidebar (เพิ่มกลับมาแล้ว!) */
+        /* ปุ่มแฮมเบอร์เกอร์และ Sidebar */
         .hamburger-btn {
             position: fixed; top: 15px; left: 15px; z-index: 100;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
             width: 45px; height: 45px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             font-size: 22px; cursor: pointer; color: #1F4B2C;
-            box-shadow: 0 4px 15px rgba(145, 234, 175, 0.3);
-            border: 1px solid white; transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(145, 234, 175, 0.3); border: 1px solid white; transition: 0.2s;
         }
         .hamburger-btn:active { transform: scale(0.9); }
 
@@ -109,8 +99,21 @@
         }
         .sidebar a:active { background: #E2F9EB; }
 
+        /* จัดการเรื่องปุ่มแอดมินทั้งหมด (อุดรอยรั่วปุ่มลบไม่ขึ้น) */
         .admin-trigger { position: absolute; top: 15px; right: 20px; font-size: 20px; opacity: 0.3; z-index: 100; cursor: pointer; }
         .admin-add-btn { width: 100%; padding: 12px; background: #1F4B2C; color: white; border: none; border-radius: 16px; margin-top: 15px; font-family: 'Mitr'; font-size: 13px; display: none; cursor: pointer; }
+        
+        /* ปุ่มลบ (ซ่อนไว้ก่อน ถ้าเข้าโหมดแอดมินค่อยโชว์) */
+        .delete-btn {
+            position: absolute; top: -8px; right: -8px;
+            background: #FF4B4B; color: white; border: none; border-radius: 50%;
+            width: 26px; height: 26px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10; font-family: sans-serif;
+            display: none; align-items: center; justify-content: center;
+        }
+        /* เมื่อเข้าโหมดแอดมิน ปุ่มลบจะโชว์ 100% แน่นอน! */
+        body.admin-mode-active .delete-btn { display: flex; }
+        
         #admin-actions { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 101; display: none; width: 90%; max-width: 400px; }
         .admin-save-btn { width: 100%; background: #C3E956; color: #1F4B2C; border: none; padding: 15px; border-radius: 20px; font-weight: 600; font-family: 'Mitr'; font-size: 14px; box-shadow: 0 0 15px rgba(195,233,86,0.5); cursor: pointer; }
         
@@ -123,7 +126,6 @@
     <div class="w-full overflow-x-hidden relative flex flex-col min-h-screen">
 
         <div class="hamburger-btn" onclick="toggleMenu()">☰</div>
-
         <div class="admin-trigger" onclick="unlockAdmin()">🔑</div>
 
         <nav id="sidebar" class="sidebar">
@@ -319,12 +321,17 @@
     <script>
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
 
+        // ฟังก์ชันเข้าโหมดแอดมิน
         function unlockAdmin() {
             let pw = prompt("ใส่รหัสผ่านเพื่อแก้ไข:");
             if (pw !== null && btoa(pw) === "T28xMTIy") { 
-                alert("ปลดล็อกโหมดแก้ไข! สามารถพิมพ์แก้ข้อความและเพิ่มรูปได้เลยครับ ✨");
+                alert("ปลดล็อกโหมดแก้ไข! สามารถพิมพ์แก้ข้อความ เพิ่มรูป และลบรูปได้เลยครับ ✨");
+                
+                // สั่งเปิดโหมดแอดมิน (คลาสนี้แหละที่จะบังคับให้ปุ่มลบโชว์ขึ้นมา!)
+                document.body.classList.add("admin-mode-active");
                 document.body.contentEditable = "true";
-                document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn, .hamburger-btn').forEach(el => {
+                
+                document.querySelectorAll('a, button:not(.admin-save-btn), .admin-add-btn, .hamburger-btn, .delete-btn').forEach(el => {
                     el.contentEditable = "false";
                     if(el.tagName === 'A') el.style.pointerEvents = "none";
                 });
@@ -336,7 +343,9 @@
             }
         }
 
+        // ฟังก์ชันออกโหมดแอดมิน
         function exitEditMode() {
+            document.body.classList.remove("admin-mode-active"); // ปิดโหมดแอดมิน (ปุ่มลบจะหายไป)
             document.body.contentEditable = "false";
             document.querySelectorAll('a').forEach(l => l.style.pointerEvents = "auto");
             document.querySelectorAll('.admin-add-btn, #admin-actions, .edit-overlay').forEach(el => el.style.display = 'none');
@@ -369,12 +378,23 @@
         }
 
         function openLightbox(src) { 
-            if(document.body.contentEditable === "true") return; 
+            if(document.body.classList.contains("admin-mode-active")) return; 
             document.getElementById('lightbox-img').src = src; 
             document.getElementById('lightbox').style.display = 'flex'; 
         }
         function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
+        // ฟังก์ชันลบข้อมูลออกจากฐานข้อมูล Firebase
+        function deleteItem(galleryId, itemKey) {
+            if(confirm("แน่ใจไหมว่าจะลบผลงานชิ้นนี้? (ลบแล้วกู้คืนไม่ได้น้า 😱)")) {
+                if(db) {
+                    db.ref('galleries/' + galleryId + '/' + itemKey).remove();
+                    alert("ลบผลงานเรียบร้อยครับ! 🗑️");
+                }
+            }
+        }
+
+        // เชื่อมต่อฐานข้อมูล
         let db;
         try {
             const firebaseConfig = {
@@ -397,11 +417,17 @@
                     cont.innerHTML = '';
                     snap.forEach(child => {
                         const d = child.val();
+                        const key = child.key; // กุญแจสำคัญไว้ใช้ลบ
+                        
                         let btn = d.linkUrl ? `<a href="${d.linkUrl}" target="_blank" style="display:block; background:#C3E956; color:#1F4B2C; padding:8px; border-radius:12px; font-size:11px; font-weight:600; text-decoration:none; margin-top:auto;">ดูตัวอย่าง</a>` : '';
                         let action = d.type === 'lightbox' ? `onclick="openLightbox(this.src)"` : '';
                         
+                        // ปั้นโค้ดกล่องผลงาน (ใส่คลาส delete-btn รอไว้เลย)
                         cont.innerHTML += `
-                            <div style="background:white; padding:10px; border-radius:18px; text-align:center; display:flex; flex-direction:column; border:1px solid rgba(145,234,175,0.3);">
+                            <div style="background:white; padding:10px; border-radius:18px; text-align:center; display:flex; flex-direction:column; border:1px solid rgba(145,234,175,0.3); position:relative;">
+                                
+                                <button class="delete-btn" onclick="deleteItem('${id}', '${key}')" contenteditable="false">✕</button>
+                                
                                 <img src="${d.imgUrl}" ${action} style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; margin-bottom:8px; cursor:pointer;">
                                 <h4 style="font-size:12px; font-weight:500; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.title}</h4>
                                 ${d.type !== 'lightbox' ? btn : ''}
